@@ -1,0 +1,9 @@
+---
+- include: ruby.yml
+  tags: [ruby]
+
+- include: rails.yml
+  tags: [rails]
+
+- include: project.yml
+  tags: [app]

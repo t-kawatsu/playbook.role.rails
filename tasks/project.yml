@@ -1,0 +1,22 @@
+---
+- name: install libraries for project
+  yum: state=present name={{ item }}
+  with_items:
+    - sshpass
+
+- name: create project root directory
+  file: path={{ app.parent_dir }} state=directory
+        owner=root group={{ rbenv.group }} mode=0770
+
+#- name: install {{ app.name }} project
+#  git: >
+#    repo={{ app.repo }}
+#    dest={{ app.parent_dir }}/{{ app.name }}
+
+#- name: install project gems
+#  shell: bash -lc "cd {{ app.parent_dir }}/{{ app.name }} && bundle install --path vendor/bundle"
+#  sudo: no
+
+#- name: build rails server
+#  shell: bash -lc "cd {{ app.parent_dir }}/{{ app.name }} && bundle exec rails server -b 0.0.0.0 --port=80"
+

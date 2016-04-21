@@ -1,0 +1,38 @@
+---
+- name: create project root directory
+  file: path={{ app.parent_dir }} state=directory
+        owner=root group={{ rbenv.group }} mode=0770
+
+- name: add initial gemfile
+  template: src=Gemfile.j2
+            dest={{ app.parent_dir }}/Gemfile
+            owner=root group={{ rbenv.group }} mode=0770
+
+- name: install rails
+  shell: bash -lc "cd {{ app.parent_dir }} && rbenv exec bundle install --path vendor/bundle"
+  sudo: no
+
+- name: create project template
+  shell: bash -lc "cd {{ app.parent_dir }} && bundle exec rails new {{ app.name }} --skip-bundle -d postgresql"
+  sudo: no
+
+- name: remove unnessesory files
+  file: path={{ app.parent_dir }}/{{ item }} state=absent
+  with_items:
+    - Gemfile
+    - Gemfile.lock
+    - .bundle
+    - vendor
+
+- name: install project gems
+  shell: bash -lc "cd {{ app.parent_dir }}/{{ app.name }} && bundle install --path vendor/bundle"
+  sudo: no
+
+- name: git ignore file
+  shell: bash -lc "echo '/vendor/bundle' >> {{ app.parent_dir }}/{{ app.name }}/.gitignore"
+  sudo: no
+
+- name: build rails server
+  shell: bash -lc "cd {{ app.parent_dir }}/{{ app.name }} && bundle exec rails server -b 0.0.0.0 --port=80"
+#  sudo: no
+
