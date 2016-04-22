@@ -5,7 +5,7 @@ app:
 #  repo: "git repository"
 
 rails:
-  version: 5.0.0.beta2
+  version: 5.0.0.beta3
 
 epel_repo:
   url: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
