@@ -3,10 +3,12 @@
   yum: state=present name={{ item }}
   with_items:
     - sshpass
+  become: yes
 
 - name: create project root directory
   file: path={{ app.parent_dir }} state=directory
         owner=root group={{ rbenv.group }} mode=0770
+  become: yes
 
 #- name: install {{ app.name }} project
 #  git: >

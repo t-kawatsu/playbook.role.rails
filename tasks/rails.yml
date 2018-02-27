@@ -12,3 +12,4 @@
     - libtool
     - bison
     - curl
+  become: yes
