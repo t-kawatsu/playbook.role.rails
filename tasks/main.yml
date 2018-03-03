@@ -1,9 +1,9 @@
 ---
-- include: rails.yml
+- import_tasks: rails.yml
   tags: [rails]
 
-#- include: project-template.yml
+#- import_tasks: project-template.yml
 #  tags: [app]
 
-- include: project.yml
+- import_tasks: project.yml
   tags: [app]
