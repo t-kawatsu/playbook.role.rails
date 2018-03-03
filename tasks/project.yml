@@ -1,9 +1,9 @@
 ---
-- name: install libraries for project
-  yum: state=present name={{ item }}
-  with_items:
-    - sshpass
-  become: yes
+#- name: install libraries for project
+#  yum: state=present name={{ item }}
+#  with_items:
+#    - sshpass
+#  become: yes
 
 - name: create project root directory
   file: path={{ app.parent_dir }} state=directory
